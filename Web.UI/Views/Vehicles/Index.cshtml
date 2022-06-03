@@ -1,0 +1,195 @@
+﻿@{
+	ViewData["Title"] = "Vehicles";
+}
+
+@using Entities.Concrete
+@model List<Vehicle>;
+@{
+
+	string url =AppSettings.ReadFileValue().ApiUrl;
+}
+<link rel="stylesheet" type="text/css" href="~/Content/app-assets/css/pages/page-users.css">
+
+<!-- BEGIN: Content-->
+<div class="app-content content">
+	<div class="content-overlay"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+		</div>
+		<div class="content-body">
+			<!-- users list start -->
+			<section class="users-list-wrapper">
+				<div style="margin-top:20px;" class="users-list-table">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Araçlar</h4>
+							<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+							<div class="heading-elements">
+								<ul class="list-inline mb-0">
+									<li>
+										<button type="button" class="btn btn-outline-danger btn-md" data-toggle="modal" data-target="#addNewVehicle">
+											<i class="feather icon-plus"></i> Yeni Kayıt Ekle
+										</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div style="margin-top:40px;" class="card-content">
+							<div class="card-body">
+								<!-- datatable start -->
+								<div class="table-responsive">
+									<table id="users-list-datatable" class="table">
+										<thead>
+											<tr>
+												<th>Plaka</th>
+												<th>Şasi</th>
+												<th>Marka</th>
+												<th>Model</th>
+												<th>Model Yıl</th>
+												<th>Oluşturulma Tarihi</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											@foreach (var item in Model)
+											{
+												<tr>
+													<td>@item.PlateNumber</td>
+													<td>@item.ChassisNumber</td>
+													<td>@item.Brand</td>
+													<td>@item.Model</td>
+													<td>@item.ModelYear</td>
+													<td>@item.CreateDate</td>
+													<td>
+														<a class="mr-2" href="/Vehicles/Detail?id=@item.Id"><b class="ficon feather icon-search"></b> Detay</a>
+														<a class="mr-1" href="javascript:;" onclick="deleteVehicle(@item.Id)"><b class="feather icon-trash-2"></b> Sil</a>
+													</td>
+												</tr>
+											}
+
+
+										</tbody>
+									</table>
+								</div>
+								<!-- datatable ends -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- users list ends -->
+		</div>
+	</div>
+</div>
+<!-- END: Content-->
+
+<div class="sidenav-overlay"></div>
+<div class="drag-target"></div>
+
+<!-- YENİ ARAÇ EKLE MODAL -->
+<div class="modal fade text-left" id="addNewVehicle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="card">
+				<div class="card-content">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12 col-sm-12 specialInputs">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">PLAKA</span>
+									</div>
+									<input type="text" class="form-control" id="plateNumber" placeholder="Plaka" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+								</div>
+
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">ŞASİ</span>
+									</div>
+									<input type="text" class="form-control" id="chassisNumber" maxlength="17" placeholder="Şasi" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+
+								</div>
+
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">MARKA</span>
+									</div>
+									<input type="text" class="form-control" placeholder="Marka" id="brand" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+
+								</div>
+
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">MODEL</span>
+									</div>
+									<input type="text" class="form-control" id="model" placeholder="Model" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+
+								</div>
+
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">MODEL YILI</span>
+									</div>
+									<input type="text" class="form-control" id="modelYear" placeholder="Model Yılı" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+								</div>
+							</div>
+							<div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+								<button type="submit" id="submitAdd" onclick="saveVehicle()" class="btn btn-outline-success glow mb-1 mb-sm-0 mr-0 mr-sm-1">
+									Kaydet
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- YENİ ARAÇ EKLE MODAL -->
+@section scripts {
+<script src="~/Content/app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
+<script src="~/Content/app-assets/js/scripts/pages/page-users.js"></script>
+<script>
+		function saveVehicle(){
+				var vehicleAdd={
+					PlateNumber:document.getElementById("plateNumber").value,
+					ChassisNumber: document.getElementById("chassisNumber").value,
+					Brand:document.getElementById("brand").value,
+					Model:document.getElementById("model").value,
+					ModelYear:document.getElementById("modelYear").value,
+
+				}
+				var json = JSON.stringify(vehicleAdd);
+				$.ajax({
+				url: '@url/Vehicle/addVehicle',
+				type: 'POST',
+				data:json,
+				contentType: "application/json; charset=utf-8",
+				success: function (data) {
+				setTimeout(function(){window.location.reload();}, 500);
+			},
+			error: function (data) {
+				alert('Şasi numarası sistemde mevcut. Lütfen ilgili datayı güncelleyiniz.');
+			}
+		});
+		}
+	function deleteVehicle(id){
+			let idNum=JSON.stringify(parseInt(id));
+				$.ajax({
+				url: '@url/Vehicle/deleteVehicle',
+				type: 'POST',
+				data:idNum,
+				contentType: "application/json; charset=utf-8",
+				success: function (data) {
+				setTimeout(function(){window.location.reload();}, 500);
+			},
+			error: function (data) {
+				alert(data);
+			}
+		});
+	}
+
+</script>
+
+}
+

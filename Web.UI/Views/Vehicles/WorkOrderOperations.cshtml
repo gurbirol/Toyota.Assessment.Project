@@ -1,0 +1,305 @@
+﻿@{
+	ViewData["Title"] = "WorkOrderOperations";
+}
+@{
+
+	string url =AppSettings.ReadFileValue().ApiUrl;
+}
+<link rel="stylesheet" type="text/css" href="~/Content/app-assets/css/plugins/forms/validation/form-validation.css">
+<link rel="stylesheet" type="text/css" href="~/Content/app-assets/vendors/css/forms/selects/select2.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/app-assets/vendors/css/pickers/pickadate/pickadate.css">
+<link rel="stylesheet" type="text/css" href="~/Content/app-assets/css/pages/page-users.css">
+@using Entities.Concrete
+@model List<WorkOrderOperation>
+@{
+	var workId = ViewBag.WorkOrderId;
+}
+<div class="app-content content">
+	<div class="content-overlay"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+		</div>
+		<div class="content-body">
+			<!-- users edit start -->
+			<section class="users-edit">
+				<div class="card">
+					<div class="card-content">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-12 col-md-12">
+									<div class="media mb-2">
+										<a class="mr-2" href="#">
+											<img src="~/Content/app-assets\images\map\leaflet\images\layers-2x.png" alt="users avatar" class="users-avatar-shadow rounded-circle" height="64" width="64">
+										</a>
+										<div class="media-body">
+											<h4 class="media-heading">@ViewBag.VehicleList.PlateNumber</h4>
+											<h6 class="media-heading">@ViewBag.VehicleList.ChassisNumber</h6>
+											<div class="col-12 px-0 d-flex">
+												<span class="badge badge-success">@ViewBag.VehicleList.Brand</span>
+												<span class="badge badge-warning ml-1">@ViewBag.VehicleList.Model</span>
+												<span class="badge badge-danger ml-2">@ViewBag.VehicleList.ModelYear</span>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-sm-12 col-md-12">
+									<ul class="nav nav-tabs mb-2" role="tablist">
+										<li class="nav-item">
+											<a class="nav-link d-flex align-items-center active" id="operations-tab" data-toggle="tab" href="#operations" aria-controls="operations" role="tab" aria-selected="true">
+												<span class="d-none d-sm-block">İş Emri Operasyonları (No: @workId )</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div style="margin-top:20px;" class="tab-content">
+
+								@*BAŞLANGIÇ*@
+								@*ARAÇ BİLGİSİ*@
+
+								<div class="tab-pane active" id="operations" aria-labelledby="operations-tab" role="tabpanel">
+									<button type="button" class="btn btn-outline-danger btn-md" data-toggle="modal" data-target="#addWorkOrderOperation">
+										<i class="feather icon-plus"></i> Yeni Operasyon Ekle
+									</button>
+
+									<div class="table-responsive mt-lg-2">
+										<table class="table mb-0">
+											<thead>
+												<tr>
+													<th>Operasyon No</th>
+													<th>Açıklama</th>
+													<th>Statü</th>
+													<th>Oluşturulma Tarihi</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												@foreach (var item in Model)
+												{
+													<tr>
+														<td>@item.Id</td>
+														<td>@item.Explanation</td>
+														@if (item.Status == 0)
+														{
+															<td><span class="badge badge-warning">Aksiyon Bekliyor</span></td>
+														}
+														else
+														{
+															<td><span class="badge badge-success">Tamamlandı</span></td>
+														}
+
+
+														<td>@item.CreateDate</td>
+														<td>
+															<a class="mr-2" href="javascript:;" data-toggle="modal" data-target="#updateWorkOrderOperation_@item.Id"><b class="feather icon-edit"></b> Düzenle</a>
+															<a class="mr-1" href="javascript:;" onclick="deleteWorkOrderOperation(@item.Id)"><b class="feather icon-trash-2"></b> Sil</a>
+														</td>
+													</tr>
+													<div class="modal fade text-left" id="updateWorkOrderOperation_@item.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="card">
+																	<div class="card-content">
+																		<div class="card-body">
+																			<div class="row">
+																				<div class="col-12 col-sm-12 specialInputs">
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">İŞ EMRİ NO</span>
+																						</div>
+																						<input type="text" class="form-control" id="workOrderNoUpdate_@item.Id" readonly value="@item.WorkOrderId" placeholder="İş Emri No" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+																					</div>
+
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">OPERASYON NO</span>
+																						</div>
+																						<input type="text" class="form-control" id="operationNoUpdate_@item.Id" readonly value="@item.Id" placeholder="Operasyon No" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+																					</div>
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">OLUŞTURULMA</span>
+																						</div>
+																						<input type="datetime" class="form-control" id="workCreateDate_@item.Id" readonly value="@item.CreateDate" placeholder="Oluşturulma" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+																					</div>
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">TALEP</span>
+																						</div>
+																						<textarea name="request" id="requestUpdate_@item.Id" value="@item.Explanation" class="form-control textarea-maxlength" placeholder="Talep" maxlength="250" rows="7" cols="500" required data-validation-required-message="Bu alanın doldurulması zorunludur">@item.Explanation</textarea>
+																					</div>
+
+
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">STATÜ</span>
+																						</div>
+																						<select id="selectIdUpdate_@item.Id" class="form-control">
+																							@if (item.Status == 0)
+																							{
+																								<option value="0" selected>Aksiyon Bekleniyor</option>
+																								<option value="1">Tamamlandı</option>
+																							}
+																							else
+																							{
+																								<option value="0">Aksiyon Bekleniyor</option>
+																								<option value="1" selected>Tamamlandı</option>
+																							}
+
+																						</select>
+																					</div>
+																				</div>
+
+																				<div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+																					<button type="submit" onclick="updateWorkOrderOperation(@item.Id)" class="btn btn-outline-success glow mb-1 mb-sm-0 mr-0 mr-sm-1">
+																						Güncelle
+																					</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												}
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+								@*ARAÇ BİLGİSİ*@
+								@*BİTİŞ*@
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- users edit ends -->
+		</div>
+	</div>
+</div>
+<!-- END: Content-->
+
+<div class="sidenav-overlay"></div>
+<div class="drag-target"></div>
+
+<!-- YENİ İŞ EMRİ OPERASYONU EKLE MODAL -->
+<div class="modal fade text-left" id="addWorkOrderOperation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="card">
+				<div class="card-content">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12 col-sm-12 specialInputs">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">TALEP</span>
+									</div>
+									<textarea name="request" value="Servis Bakımı" class="form-control textarea-maxlength" id="requestAdd" placeholder="Talep" maxlength="250" rows="7" cols="500" required data-validation-required-message="Bu alanın doldurulması zorunludur"></textarea>
+								</div>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">STATÜ</span>
+									</div>
+									<select id="selectIdAdd" class="form-control">
+										<option value="0">Aksiyon Bekleniyor</option>
+										<option value="1">Tamamlandı</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+								<button type="submit" id="insertDb" onclick="saveWorkOrderOperation()" class="btn btn-outline-success glow mb-1 mb-sm-0 mr-0 mr-sm-1">
+									Kaydet
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- YENİ İŞ EMRİ OPERASYONU EKLE MODAL -->
+<!-- İŞ EMRİ OPERASYONU GÜNCELLE MODAL -->
+<!-- İŞ EMRİ OPERASYONU GÜNCELLE MODAL -->
+@section scripts {
+<script src="~/Content/app-assets/js/scripts/pages/page-users.js"></script>
+<script src="~/Content/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"></script>
+<script src="~/Content/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+<script src="~/Content/app-assets/vendors/js/pickers/pickadate/picker.js"></script>
+<script src="~/Content/app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
+<script src="~/Content/app-assets/js/scripts/navs/navs.js"></script>
+<script>
+	function deleteWorkOrderOperation(id){
+			let idNum=JSON.stringify(parseInt(id));
+				$.ajax({
+				url: '@url/api/WorkOrderOperation/deleteWorkOrderOperation',
+				type: 'POST',
+				data:idNum,
+				contentType: "application/json; charset=utf-8",
+				success: function (data) {
+				//alert('İşlem Başarılı');
+				setTimeout(function(){window.location.reload();}, 500);
+			},
+			error: function (data) {
+				alert(data);
+			}
+		});
+	}
+	function saveWorkOrderOperation(){
+		var e = document.getElementById("selectIdAdd");
+				var status = e.value;
+				var workOrderAdd={
+					Explanation:document.getElementById("requestAdd").value ,
+					WorkOrderId:@workId,
+					Status:  parseInt(status)
+				}
+				var json = JSON.stringify(workOrderAdd);
+				$.ajax({
+				url: '@url/api/WorkOrderOperation/addWorkOrderOperation',
+				type: 'POST',
+				data:json,
+				contentType: "application/json; charset=utf-8",
+				success: function (data) {
+				//alert('İşlem Başarılı');
+				setTimeout(function(){window.location.reload();}, 500);
+			},
+			error: function (data) {
+				alert(data);
+			}
+		});
+		}
+			function updateWorkOrderOperation(id){
+				var e = document.getElementById("selectIdUpdate_"+id+"");
+				var status = e.value;
+				var workOrderOperationUpdate={
+					Id: document.getElementById("operationNoUpdate_"+id+"").value,
+					WorkOrderId:document.getElementById("workOrderNoUpdate_"+id+"").value,
+					Explanation:document.getElementById("requestUpdate_"+id+"").value,
+					Status:parseInt(status),
+					CreateDate:new Date(Date.parse(document.getElementById("workCreateDate_"+id+"").value)),
+				}
+				var json = JSON.stringify(workOrderOperationUpdate);
+				$.ajax({
+				url: '@url/api/WorkOrderOperation/updateWorkOrderOperation',
+				type: 'POST',
+				data:json,
+				contentType: "application/json; charset=utf-8",
+				success: function (data) {
+				//alert('İşlem Başarılı');
+				setTimeout(function(){window.location.reload();}, 500);
+			},
+			error: function (data) {
+				alert('Tarih formatını mm.dd.yyyy olarak seçiniz.');
+			}
+		});
+	}
+</script>
+}

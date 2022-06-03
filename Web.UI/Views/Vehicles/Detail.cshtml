@@ -1,0 +1,677 @@
+﻿@{
+	ViewData["Title"] = "Detail";
+}
+@using Entities.Concrete
+@model GeneralVehicleInformation;
+@{
+
+	string url =AppSettings.ReadFileValue().ApiUrl;
+}
+<link rel="stylesheet" type="text/css" href="~/Content/app-assets/css/plugins/forms/validation/form-validation.css">
+<link rel="stylesheet" type="text/css" href="~/Content/app-assets/vendors/css/forms/selects/select2.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/app-assets/vendors/css/pickers/pickadate/pickadate.css">
+<link rel="stylesheet" type="text/css" href="~/Content/app-assets/css/pages/page-users.css">
+
+<div class="app-content content">
+	<div class="content-overlay"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+		</div>
+		<div class="content-body">
+			<!-- users edit start -->
+			<section class="users-edit">
+				<div class="card">
+					<div class="card-content">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-12 col-md-12">
+									<div class="media mb-2">
+										<a class="mr-2" href="#">
+											<img src="~/Content/app-assets\images\map\leaflet\images\layers-2x.png" alt="users avatar" class="users-avatar-shadow rounded-circle" height="64" width="64">
+										</a>
+										<div class="media-body">
+											<h4 class="media-heading">@Model.VehicleList[0].PlateNumber</h4>
+											<h6 class="media-heading">@Model.VehicleList[0].ChassisNumber</h6>
+											<div class="col-12 px-0 d-flex">
+												<span class="badge badge-success">@Model.VehicleList[0].Brand</span>
+												<span class="badge badge-warning ml-1">@Model.VehicleList[0].Model</span>
+												<span class="badge badge-danger ml-2">@Model.VehicleList[0].ModelYear</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-12 col-md-12">
+									<ul class="nav nav-tabs mb-2" role="tablist">
+										<li class="nav-item">
+											<a class="nav-link d-flex align-items-center active" id="vehicles-tab" data-toggle="tab" href="#vehicles" aria-controls="vehicles" role="tab" aria-selected="true">
+												<span class="d-none d-sm-block">Araç Bilgisi</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link d-flex align-items-center" id="warranty-tab" data-toggle="tab" href="#warranty" aria-controls="warranty" role="tab" aria-selected="false">
+												<span class="d-none d-sm-block">Araç Garanti Kayıtları</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link d-flex align-items-center" id="workOrders-tab" data-toggle="tab" href="#workOrders" aria-controls="workOrders" role="tab" aria-selected="false">
+												<span class="d-none d-sm-block">İş Emirleri</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div style="margin-top:20px;" class="tab-content">
+
+								@*BAŞLANGIÇ*@
+								@*ARAÇ BİLGİSİ*@
+
+								<div class="tab-pane active" id="vehicles" aria-labelledby="vehicles-tab" role="tabpanel">
+									<!-- users edit media object start -->
+									<!-- users edit media object ends -->
+									<!-- users edit account form start -->
+									<form novalidate>
+										<div class="row">
+											<div class="col-12 col-sm-6 specialInputs">
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text" id="basic-addon1">PLAKA</span>
+													</div>
+													<input type="text" class="form-control" placeholder="Plaka" id="plate" value="@Model.VehicleList[0].PlateNumber" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+												</div>
+
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text" id="basic-addon1">ŞASİ</span>
+													</div>
+													<input type="text" class="form-control" placeholder="Şasi" id="chassis" value="@Model.VehicleList[0].ChassisNumber" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+
+												</div>
+
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text" id="basic-addon1">MARKA</span>
+													</div>
+													<input type="text" class="form-control" id="brand" placeholder="Marka" value="@Model.VehicleList[0].Brand" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+
+												</div>
+
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text" id="basic-addon1">MODEL</span>
+													</div>
+													<input type="text" class="form-control" id="model" placeholder="Model" value="@Model.VehicleList[0].Model" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+
+												</div>
+
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text" id="basic-addon1">MODEL YILI</span>
+													</div>
+													<input type="text" class="form-control" id="modelYear" placeholder="Model Yılı" value="@Model.VehicleList[0].ModelYear" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+												</div>
+											</div>
+											<div class="col-12 col-sm-6 specialInputs">
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text" id="basic-addon1">OLUŞTURULMA TARİHİ</span>
+													</div>
+													<input type="datetime" class="form-control" id="createDate" placeholder="Oluşturulma Tarihi" value="@Model.VehicleList[0].CreateDate" required data-validation-required-message="Bu alanın doldurulması zorunludur" readonly>
+												</div>
+											</div>
+											<div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+												<button type="button" id="submitUpdateVehicles" onclick="updateVehicle()" class="btn btn-outline-success glow mb-1 mb-sm-0 mr-0 mr-sm-1">
+													Güncelle
+												</button>
+											</div>
+										</div>
+									</form>
+									<!-- users edit account form ends -->
+								</div>
+
+								@*ARAÇ BİLGİSİ*@
+								@*BİTİŞ*@
+
+
+								@*___________________________________________________________________________________________________________*@
+
+
+
+								@*BAŞLANGIÇ*@
+								@*ARAÇ GARANTİ BİLGİLERİ*@
+
+								<div class="tab-pane" id="warranty" aria-labelledby="warranty-tab" role="tabpanel">
+									@*İçerik kısmı*@
+
+									<button type="button" class="btn btn-outline-danger btn-md" data-toggle="modal" data-target="#addNewWarranty">
+										<i class="feather icon-plus"></i> Yeni Kayıt Ekle
+									</button>
+
+									<div class="table-responsive mt-lg-2">
+										<table class="table mb-0">
+											<thead>
+												<tr>
+													<th>Kayıt Numarası</th>
+													<th>Başlangıç Tarihi</th>
+													<th>Bitiş Tarihi</th>
+													<th>Oluşturulma Tarihi</th>
+													<th>Garanti Durumu</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												@foreach (var warranty in Model.VehicleWarrantyRecordList)
+												{
+													<tr>
+														<td>@warranty.Id</td>
+														<td>@warranty.StartDate</td>
+														<td>@warranty.EndDate</td>
+														<td>@warranty.CreateDate</td>
+														@if (@warranty.Status == "Aktif")
+														{
+															<td><span class="badge badge-success">@warranty.Status</span></td>
+
+														}
+														else
+														{
+															<td><span class="badge badge-danger">@warranty.Status</span></td>
+														}
+														<td>
+															<a class="mr-2" href="#" data-toggle="modal" data-target="#updateNewWarranty_@warranty.Id"><b class="feather icon-edit"></b> Düzenle</a>
+															<a class="mr-1" href="javascript:;" onclick="deleteWarranty(@warranty.Id)"><b class="feather icon-trash-2"></b> Sil</a>
+														</td>
+													</tr>
+													<div class="modal fade text-left" id="updateNewWarranty_@warranty.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="card">
+																	<div class="card-content">
+																		<div class="card-body">
+																			<div class="row">
+																				<div class="col-12 col-sm-12 specialInputs">
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">KAYIT NO</span>
+																						</div>
+																						<input type="text" id="no_@warranty.Id" class="form-control" readonly placeholder="Kayıt Numarası" value="@warranty.Id" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+																					</div>
+
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">BAŞLANGIÇ</span>
+																						</div>
+																						<input type="datetime-local" id="startDate_@warranty.Id" class="form-control" placeholder="Başlangıç Tarihi" value="@warranty.StartDate" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+																					</div>
+
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">BİTİŞ</span>
+																						</div>
+																						<input type="datetime-local" class="form-control" id="endDate_@warranty.Id" placeholder="Bitiş Tarihi" value="@warranty.EndDate" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+																					</div>
+
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">OLUŞTURULMA</span>
+																						</div>
+																						<input type="datetime" class="form-control" id="createDate_@warranty.Id" readonly placeholder="Oluşturulma Tarihi" value="@warranty.CreateDate" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+																					</div>
+																				</div>
+																				<div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+																					<button type="submit" id="submitupteWarranty" onclick="location.hash='warranty';updateWarranty(@warranty.Id)" class="btn btn-outline-success glow mb-1 mb-sm-0 mr-0 mr-sm-1">
+																						Güncelle
+																					</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												}
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+								@*ARAÇ GARANTİ BİLGİLERİ*@
+								@*BİTİŞ*@
+
+
+
+								@*___________________________________________________________________________________________________________*@
+
+
+
+								@*BAŞLANGIÇ*@
+								@*İŞ EMİRLERİ*@
+								@*İçerik kısmı*@
+								<div class="tab-pane" id="workOrders" aria-labelledby="workOrders-tab" role="tabpanel">
+
+									<button type="button" class="btn btn-outline-danger btn-md" data-toggle="modal" data-target="#addNewWorkOrder">
+										<i class="feather icon-plus"></i> Yeni Kayıt Ekle
+									</button>
+
+									<button type="button" class="btn btn-outline-warning btn-md" data-toggle="modal" data-target="#transfer">
+										<i class="feather icon-corner-up-right"></i> Aktar
+									</button>
+
+									<div class="table-responsive mt-lg-2">
+										<table class="table mb-0">
+											<thead>
+												<tr>
+													@*<th></th>*@
+													<th>Kayıt Numarası</th>
+													<th>Tarih</th>
+													<th>Müşteri</th>
+													<th>Talep</th>
+													<th>Oluşturulma Tarihi</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												@foreach (var work in Model.WorkOrderList)
+												{
+													<tr>
+														@*<td><a class="mr-3" target="_blank" href="javascript:;" data-toggle="modal" data-target="#transfer"><b class="feather icon-corner-up-right"></b> Aktar</a></td>*@
+														<td>@work.Id</td>
+														<td>@work.DateValue</td>
+														<td>@work.CustomerName</td>
+														<td>@work.Request</td>
+														<td>@work.CreateDate</td>
+														<td>
+															<a class="mr-3" target="_blank" href="/Vehicles/WorkOrderOperations?id=@work.Id&&vehicleId=@work.VehicleId"><b class="feather icon-search"></b> Operasyonlar</a>
+															<a class="mr-2" href="javascript:;" data-toggle="modal" data-target="#updateWorkOrder_@work.Id"><b class="feather icon-edit"></b> Düzenle</a>
+															<a class="mr-1" href="javascript:;" onclick="deleteWork(@work.Id)"><b class="feather icon-trash-2"></b> Sil</a>
+														</td>
+													</tr>
+													<div class="modal fade text-left" id="updateWorkOrder_@work.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="card">
+																	<div class="card-content">
+																		<div class="card-body">
+																			<div class="row">
+																				<div class="col-12 col-sm-12 specialInputs">
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">KAYIT NO</span>
+																						</div>
+																						<input type="text" id="workId_@work.Id" class="form-control" value="@work.Id" readonly placeholder="Kayıt No" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+																					</div>
+
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">TARİH</span>
+																						</div>
+																						<input type="datetime-local" id="workDateValue_@work.Id" class="form-control" value="@work.DateValue" placeholder="Tarih" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+																					</div>
+
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">MÜŞTERİ</span>
+																						</div>
+																						<input type="text" id="workCustomerName_@work.Id" class="form-control" value="@work.CustomerName" placeholder="Müşteri Adı" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+																					</div>
+
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">TALEP</span>
+																						</div>
+																						<textarea name="maxlength-textarea" value="@work.Request" class="form-control textarea-maxlength" id="workRequest_@work.Id" placeholder="Talep" maxlength="500" rows="7" cols="500" required data-validation-required-message="Bu alanın doldurulması zorunludur">@work.Request</textarea>
+																					</div>
+
+																					<div class="input-group">
+																						<div class="input-group-prepend">
+																							<span class="input-group-text" id="basic-addon1">OLUŞTURULMA</span>
+																						</div>
+																						<input type="datetime" class="form-control" id="workCreateDate_@work.Id" readonly value="@work.CreateDate" placeholder="Oluşturulma" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+																					</div>
+																				</div>
+																				<div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+																					<button type="button" onclick="location.hash='workOrders';updateWorkOrder(@work.Id)" class="btn btn-outline-success glow mb-1 mb-sm-0 mr-0 mr-sm-1">
+																						Güncelle
+																					</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												}
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+								@*İŞ EMİRLERİ*@
+								@*BİTİŞ*@
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- users edit ends -->
+		</div>
+	</div>
+</div>
+
+
+<!-- YENİ GARANTI KAYDI EKLE MODAL -->
+<div class="modal fade text-left" id="addNewWarranty" tabindex="-1" role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="card">
+				<div class="card-content">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12 col-sm-12 specialInputs">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">BAŞLANGIÇ</span>
+									</div>
+									<input type="date" class="form-control" id="startDate" placeholder="Başlangıç Tarihi" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+								</div>
+
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">BİTİŞ</span>
+									</div>
+									<input type="date" class="form-control" id="endDate" placeholder="Bitiş Tarihi" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+								</div>
+							</div>
+							<div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+								<button type="submit" id="btnsubmit2" onclick="location.hash='warranty';saveWarranty()" class="btn btn-outline-success glow mb-1 mb-sm-0 mr-0 mr-sm-1">
+									Kaydet
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- YENİ GARANTI KAYDI EKLE MODAL -->
+<!-- GARANTI KAYDI GÜNCELLEME MODAL -->
+<!-- GARANTI KAYDI GÜNCELLEME MODAL -->
+<!-- YENİ İŞ EMRİ EKLE MODAL -->
+<div class="modal fade text-left" id="addNewWorkOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="card">
+				<div class="card-content">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12 col-sm-12 specialInputs">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">TARİH</span>
+									</div>
+									<input type="date" class="form-control" id="workOrderDate" placeholder="Tarih" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+								</div>
+
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">MÜŞTERİ</span>
+									</div>
+									<input type="text" class="form-control" id="workOrderCustomerName" placeholder="Müşteri Adı" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+								</div>
+
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">TALEP</span>
+									</div>
+									<textarea name="maxlength-textarea" class="form-control textarea-maxlength" id="workOrderRequest" placeholder="Talep" maxlength="500" rows="7" cols="500" required data-validation-required-message="Bu alanın doldurulması zorunludur"></textarea>
+								</div>
+							</div>
+							<div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+								<button type="submit" id="submit3" onclick="location.hash='workOrders';saveWorkOrder()" class="btn btn-outline-success glow mb-1 mb-sm-0 mr-0 mr-sm-1">
+									Kaydet
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- YENİ İŞ EMRİ EKLE MODAL -->
+<!-- İŞ EMRİ GÜNCELLEME MODAL -->
+<!-- İŞ EMRİ GÜNCELLEME MODAL -->
+<!-- AKTAR MODAL -->
+<div class="modal fade text-left" id="transfer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="card">
+				<div class="card-content">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12 col-sm-12 specialInputs">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">KAYNAK ŞASİ</span>
+									</div>
+									<input type="text" class="form-control" readonly value="@Model.VehicleList[0].ChassisNumber" placeholder="Kaynak Şasi" required data-validation-required-message="Bu alanın doldurulması zorunludur">
+								</div>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">HEDEF ŞASİ</span>
+									</div>
+									<select id="ddlViewBy" class="form-control">
+										@foreach (var item in ViewBag.ChassisNumber)
+										{
+											<option value="@item">@item</option>
+										}
+
+									</select>
+								</div>
+							</div>
+							<div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+								<button type="submit" onclick="transferVehicleChassisNumber()" class="btn btn-outline-success glow mb-1 mb-sm-0 mr-0 mr-sm-1">
+									Aktar
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- AKTAR MODAL -->
+<!-- END: Content-->
+
+<div class="sidenav-overlay"></div>
+<div class="drag-target"></div>
+
+@section scripts {
+<script src="~/Content/app-assets/js/scripts/pages/page-users.js"></script>
+<script src="~/Content/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"></script>
+<script src="~/Content/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+<script src="~/Content/app-assets/vendors/js/pickers/pickadate/picker.js"></script>
+<script src="~/Content/app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
+<script src="~/Content/app-assets/js/scripts/navs/navs.js"></script>
+
+<script>
+			window.onload = (event) => {
+					const selectTabId = localStorage.getItem("selecttab");
+				$(".nav-tabs > li > a[href='"+selectTabId+"']").click();
+			};
+
+			$(".nav-tabs > li > a ").click(function () {
+				var id = $(this).attr("href");
+				//console.log(id);
+				localStorage.setItem("selecttab",id);
+			});
+
+				function saveWarranty(){
+					var warrantyAdd={
+						VehicleId: @Model.VehicleList[0].Id,
+						StartDate: document.getElementById("startDate").value,
+						EndDate:  document.getElementById("endDate").value,
+					}
+					var json = JSON.stringify(warrantyAdd);
+					$.ajax({
+					url: '@url/api/VehicleWarrantyRecord/addWorkVehicleWarrantyRecord',
+					type: 'POST',
+					data:json,
+					contentType: "application/json; charset=utf-8",
+					success: function (data) {
+					setTimeout(function(){window.location.reload();}, 500);
+				},
+				error: function (data) {
+					alert('Tarih formatını mm.dd.yyyy olarak seçiniz.');
+				}
+			});
+			}
+			function saveWorkOrder(){
+					var workOrderAdd={
+						VehicleId: @Model.VehicleList[0].Id,
+						DateValue:new Date(Date.parse(document.getElementById("workOrderDate").value)),
+						CustomerName:  document.getElementById("workOrderCustomerName").value,
+						Request:  document.getElementById("workOrderRequest").value,
+					}
+					var json = JSON.stringify(workOrderAdd);
+					$.ajax({
+					url: '@url/api/WorkOrder/addWorkOrder',
+					type: 'POST',
+					data:json,
+					contentType: "application/json; charset=utf-8",
+					success: function (data) {
+					setTimeout(function(){window.location.reload();}, 500);
+				},
+				error: function (data) {
+					alert('Tarih formatını mm.dd.yyyy olarak seçiniz.');
+				}
+			});
+			}
+			function transferVehicleChassisNumber(){
+				var e = document.getElementById("ddlViewBy");
+				var targetChassis = e.options[e.selectedIndex].text;
+					var transferAdd={
+						currentChassisNumber: "@Html.Raw(@Model.VehicleList[0].ChassisNumber)".toString(),
+						targetChassisNumber:targetChassis
+					}
+					var json = JSON.stringify(transferAdd);
+					$.ajax({
+					url: '@url/api/WorkOrder/updateWorkOrderByChassisNumber',
+					type: 'POST',
+					data:json,
+					contentType: "application/json; charset=utf-8",
+					success: function (data) {
+					setTimeout(function(){window.location.reload();}, 500);
+				},
+				error: function (data) {
+				}
+			});
+			}
+			function updateVehicle(){
+					var vehicleModel={
+						Id: @Model.VehicleList[0].Id,
+						PlateNumber:document.getElementById("plate").value,
+						ChassisNumber:document.getElementById("chassis").value,
+						Brand:document.getElementById("brand").value,
+						Model:document.getElementById("model").value,
+						ModelYear:document.getElementById("modelYear").value,
+					}
+					var json = JSON.stringify(vehicleModel);
+					$.ajax({
+					url: '@url/Vehicle/updateVehicle',
+					type: 'POST',
+					data:json,
+					contentType: "application/json; charset=utf-8",
+					success: function (data) {
+					setTimeout(function(){window.location.reload();}, 500);
+				},
+				error: function (data) {
+
+				}
+			});
+		}
+		function updateWorkOrder(id){
+					var workOrderUpdate={
+						Id: document.getElementById("workId_"+id+"").value,
+						VehicleId:@Model.VehicleList[0].Id,
+						DateValue:new Date(Date.parse(document.getElementById("workDateValue_"+id+"").value)),
+						CustomerName:document.getElementById("workCustomerName_"+id+"").value,
+						Request:document.getElementById("workRequest_"+id+"").value,
+						CreateDate:new Date(Date.parse(document.getElementById("workCreateDate_"+id+"").value)),
+					}
+					var json = JSON.stringify(workOrderUpdate);
+					$.ajax({
+					url: '@url/api/WorkOrder/updateWorkOrder',
+					type: 'POST',
+					data:json,
+					contentType: "application/json; charset=utf-8",
+					success: function (data) {
+					setTimeout(function(){window.location.reload();}, 500);
+				},
+				error: function (data) {
+					alert('Tarih formatını mm.dd.yyyy olarak seçiniz.');
+				}
+			});
+		}
+		function updateWarranty(id){
+			var workOrderUpdate={
+						Id: document.getElementById("no_"+id+"").value,
+						VehicleId:@Model.VehicleList[0].Id,
+						StartDate: new Date(Date.parse(document.getElementById("startDate_"+id+"").value)),
+						EndDate:new Date(Date.parse(document.getElementById("endDate_"+id+"").value)),
+						CreateDate:new Date(Date.parse(document.getElementById("createDate_"+id+"").value)),
+						Status:""
+					}
+					var json = JSON.stringify(workOrderUpdate);
+					$.ajax({
+					url: '@url/api/VehicleWarrantyRecord/updateVehicleWarrantyRecord',
+					type: 'POST',
+					data:json,
+					contentType: "application/json; charset=utf-8",
+					success: function (data) {
+					setTimeout(function(){window.location.reload();}, 500);
+				},
+				error: function (data) {
+					alert('Tarih formatını mm.dd.yyyy olarak seçiniz.');
+				}
+			});
+		}
+			function deleteWork(id){
+				let idNum=JSON.stringify(parseInt(id));
+					$.ajax({
+					url: '@url/api/WorkOrder/deleteWorkOrder',
+					type: 'POST',
+					data:idNum,
+					contentType: "application/json; charset=utf-8",
+					success: function (data) {
+					setTimeout(function(){window.location.reload();}, 500);
+				},
+				error: function (data) {
+					alert(data);
+				}
+			});
+		}
+			function deleteWarranty(id){
+				let idNum=JSON.stringify(parseInt(id));
+					$.ajax({
+					url: '@url/api/VehicleWarrantyRecord/deleteVehicleWarrantyRecord',
+					type: 'POST',
+					data:idNum,
+					contentType: "application/json; charset=utf-8",
+					success: function (data) {
+					setTimeout(function(){window.location.reload();}, 500);
+				},
+				error: function (data) {
+					alert(data);
+				}
+			});
+		}
+
+</script>
+}

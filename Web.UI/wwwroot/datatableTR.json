@@ -1,0 +1,244 @@
+{
+  "emptyTable": "Tabloda herhangi bir veri mevcut degil",
+  "info": "_TOTAL_ kayittan _START_ - _END_ arasindaki kayitlar gosteriliyor",
+  "infoEmpty": "Kayit yok",
+  "infoFiltered": "(_MAX_ kayit icerisinden bulunan)",
+  "infoThousands": ".",
+  "lengthMenu": "Sayfada _MENU_ kayit goster",
+  "loadingRecords": "Yukleniyor...",
+  "processing": "Isleniyor...",
+  "search": "Ara:",
+  "zeroRecords": "Eslesen kayit bulunamadi",
+  "paginate": {
+    "first": "Ilk",
+    "last": "Son",
+    "next": "Sonraki",
+    "previous": "Onceki"
+  },
+  "aria": {
+    "sortAscending": ": artan sutun siralamasini aktiflestir",
+    "sortDescending": ": azalan sutun siralamasini aktiflestir"
+  },
+  "select": {
+    "rows": {
+      "_": "%d kayit secildi",
+      "1": "1 kayit secildi"
+    },
+    "cells": {
+      "1": "1 hucre secildi",
+      "_": "%d hucre secildi"
+    },
+    "columns": {
+      "1": "1 sutun secildi",
+      "_": "%d sutun secildi"
+    }
+  },
+  "autoFill": {
+    "cancel": "Iptal",
+    "fillHorizontal": "Hucreleri yatay olarak doldur",
+    "fillVertical": "Hucreleri dikey olarak doldur",
+    "fill": "Butun hucreleri <i>%d<\/i> ile doldur"
+  },
+  "buttons": {
+    "collection": "Koleksiyon <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
+    "colvis": "Sutun gorunurlugu",
+    "colvisRestore": "Gorunurlugu eski haline getir",
+    "copySuccess": {
+      "1": "1 satir panoya kopyalandi",
+      "_": "%ds satir panoya kopyalandi"
+    },
+    "copyTitle": "Panoya kopyala",
+    "csv": "CSV",
+    "excel": "Excel",
+    "pageLength": {
+      "-1": "Butun satirlari goster",
+      "_": "%d satir goster"
+    },
+    "pdf": "PDF",
+    "print": "Yazdir",
+    "copy": "Kopyala",
+    "copyKeys": "Tablodaki veriyi kopyalamak icin CTRL veya u2318 + C tuslarina basiniz. Iptal etmek icin bu mesaja tiklayin veya escape tusuna basin.",
+    "createState": "suanki Gorunumu Kaydet",
+    "removeAllStates": "Tum Gorunumleri Sil",
+    "removeState": "Aktif Gorunumu Sil",
+    "renameState": "Aktif Gorunumun Adini Degistir",
+    "savedStates": "Kaydedilmis Gorunumler",
+    "stateRestore": "Gorunum -&gt; %d",
+    "updateState": "Aktif Gorunumun Guncelle"
+  },
+  "searchBuilder": {
+    "add": "Kosul Ekle",
+    "button": {
+      "0": "Arama Olusturucu",
+      "_": "Arama Olusturucu (%d)"
+    },
+    "condition": "Kosul",
+    "conditions": {
+      "date": {
+        "after": "Sonra",
+        "before": "Once",
+        "between": "Arasinda",
+        "empty": "Bos",
+        "equals": "Esittir",
+        "not": "Degildir",
+        "notBetween": "Disinda",
+        "notEmpty": "Dolu"
+      },
+      "number": {
+        "between": "Arasinda",
+        "empty": "Bos",
+        "equals": "Esittir",
+        "gt": "Buyuktur",
+        "gte": "Buyuk esittir",
+        "lt": "Kucuktur",
+        "lte": "Kucuk esittir",
+        "not": "Degildir",
+        "notBetween": "Disinda",
+        "notEmpty": "Dolu"
+      },
+      "string": {
+        "contains": "Icerir",
+        "empty": "Bos",
+        "endsWith": "Ile biter",
+        "equals": "Esittir",
+        "not": "Degildir",
+        "notEmpty": "Dolu",
+        "startsWith": "Ile baslar",
+        "notContains": "Icermeyen",
+        "notStarts": "Baslamayan",
+        "notEnds": "Bitmeyen"
+      },
+      "array": {
+        "contains": "Icerir",
+        "empty": "Bos",
+        "equals": "Esittir",
+        "not": "Degildir",
+        "notEmpty": "Dolu",
+        "without": "Haric"
+      }
+    },
+    "data": "Veri",
+    "deleteTitle": "Filtreleme kuralini silin",
+    "leftTitle": "Kriteri disari cikart",
+    "logicAnd": "ve",
+    "logicOr": "veya",
+    "rightTitle": "Kriteri iceri al",
+    "title": {
+      "0": "Arama Olusturucu",
+      "_": "Arama Olusturucu (%d)"
+    },
+    "value": "Deger",
+    "clearAll": "Filtreleri Temizle"
+  },
+  "searchPanes": {
+    "clearMessage": "Hepsini Temizle",
+    "collapse": {
+      "0": "Arama Bolmesi",
+      "_": "Arama Bolmesi (%d)"
+    },
+    "count": "{total}",
+    "countFiltered": "{shown}\/{total}",
+    "emptyPanes": "Arama Bolmesi yok",
+    "loadMessage": "Arama Bolmeleri yukleniyor ...",
+    "title": "Etkin filtreler - %d",
+    "showMessage": "Tumunu Goster",
+    "collapseMessage": "Tumunu Gizle"
+  },
+  "thousands": ".",
+  "datetime": {
+    "amPm": [
+      "oo",
+      "os"
+    ],
+    "hours": "Saat",
+    "minutes": "Dakika",
+    "next": "Sonraki",
+    "previous": "Onceki",
+    "seconds": "Saniye",
+    "unknown": "Bilinmeyen",
+    "weekdays": {
+      "6": "Paz",
+      "5": "Cmt",
+      "4": "Cum",
+      "3": "Per",
+      "2": "car",
+      "1": "Sal",
+      "0": "Pzt"
+    },
+    "months": {
+      "9": "Ekim",
+      "8": "Eylul",
+      "7": "Agustos",
+      "6": "Temmuz",
+      "5": "Haziran",
+      "4": "Mayis",
+      "3": "Nisan",
+      "2": "Mart",
+      "11": "Aralik",
+      "10": "Kasim",
+      "1": "subat",
+      "0": "Ocak"
+    }
+  },
+  "decimal": ",",
+  "editor": {
+    "close": "Kapat",
+    "create": {
+      "button": "Yeni",
+      "submit": "Kaydet",
+      "title": "Yeni kayit olustur"
+    },
+    "edit": {
+      "button": "Duzenle",
+      "submit": "Guncelle",
+      "title": "Kaydi duzenle"
+    },
+    "error": {
+      "system": "Bir sistem hatasi olustu (Ayrintili bilgi)"
+    },
+    "multi": {
+      "info": "Secili kayitlar bu alanda farkli degerler iceriyor. Secili kayitlarin hepsinde bu alana ayni degeri atamak icin buraya tiklayin; aksi halde her kayit bu alanda kendi degerini koruyacak.",
+      "noMulti": "Bu alan bir grup olarak degil ancak tekil olarak duzenlenebilir.",
+      "restore": "Degisiklikleri geri al",
+      "title": "coklu deger"
+    },
+    "remove": {
+      "button": "Sil",
+      "confirm": {
+        "_": "%d adet kaydi silmek istediginize emin misiniz?",
+        "1": "Bu kaydi silmek istediginizden emin misiniz?"
+      },
+      "submit": "Sil",
+      "title": "Kayitlari sil"
+    }
+  },
+  "stateRestore": {
+    "creationModal": {
+      "button": "Kaydet",
+      "columns": {
+        "search": "Kolon Aramasi",
+        "visible": "Kolon Gorunumu"
+      },
+      "name": "Gorunum Ismi",
+      "order": "Siralama",
+      "paging": "Sayfalama",
+      "scroller": "Kaydirma (Scrool)",
+      "search": "Arama",
+      "searchBuilder": "Arama Olusturucu",
+      "select": "Secimler",
+      "title": "Yeni Gorunum Olustur",
+      "toggleLabel": "Kaydedilecek Olanlar"
+    },
+    "duplicateError": "Bu Gorunum Daha once Tanimlanmis",
+    "emptyError": "Gorunum Bos Olamaz",
+    "emptyStates": "Herhangi Bir Gorunum Yok",
+    "removeConfirm": "Gorunumu Silmek Istediginize Eminminisiniz?",
+    "removeError": "Gorunum Silinemedi",
+    "removeJoiner": "ve",
+    "removeSubmit": "Sil",
+    "removeTitle": "Gorunum Sil",
+    "renameButton": "Degistir",
+    "renameLabel": "Gorunume Yeni Isim Ver -&gt; %s:",
+    "renameTitle": "Gorunum Ismini Degistir"
+  }
+} 

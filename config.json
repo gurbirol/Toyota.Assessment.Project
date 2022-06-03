@@ -1,0 +1,10 @@
+﻿[
+
+  {
+    "ApiUrl": "https://localhost:7242/",
+    "DataSource": "HOME",
+    "InitialCatalog": "AssesmentProjectDB",
+    "UserID": "sa",
+    "Password": "B1rolgur"
+  }
+]
