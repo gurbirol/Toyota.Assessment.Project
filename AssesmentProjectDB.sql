@@ -518,7 +518,7 @@ GO
 
 
 
-
+-- DUMMY RECORS
 
 USE [AssesmentProjectDB]
 GO
@@ -682,5 +682,69 @@ SET @currentWorkOrderId = IDENT_CURRENT('Work_Orders')
 EXEC usp_Add_WorkOrderOperations @currentWorkOrderId, 'Yapılması Gereken İşlemler', 0
 EXEC usp_Add_WorkOrderOperations @currentWorkOrderId, 'Yapılması Gereken İşlemler', 0
 EXEC usp_Add_WorkOrderOperations @currentWorkOrderId, 'Yapılması Gereken İşlemler', 0
+
+GO
+
+-- INDEX PROCESSES
+USE [AssesmentProjectDB]
+
+GO
+
+CREATE NONCLUSTERED INDEX [IX_Vehicle_Warranty_Records_VehicleId] ON [dbo].[Vehicle_Warranty_Records]
+(
+	[VehicleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF)
+
+GO
+
+
+
+USE [AssesmentProjectDB]
+
+GO
+
+CREATE NONCLUSTERED INDEX [IX_Vehicles_PlateNumber] ON [dbo].[Vehicles]
+(
+	[PlateNumber] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF)
+
+GO
+
+
+
+USE [AssesmentProjectDB]
+
+GO
+
+CREATE NONCLUSTERED INDEX [IX_Vehicles_ChassisNumber] ON [dbo].[Vehicles]
+(
+	[ChassisNumber] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF)
+
+GO
+
+
+
+USE [AssesmentProjectDB]
+
+GO
+
+CREATE NONCLUSTERED INDEX [IX_Work_Order_Operations_WorkOrderId] ON [dbo].[Work_Order_Operations]
+(
+	[WorkOrderId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF)
+
+GO
+
+
+
+USE [AssesmentProjectDB]
+
+GO
+
+CREATE NONCLUSTERED INDEX [IX_Work_Orders_VehicleId] ON [dbo].[Work_Orders]
+(
+	[VehicleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF)
 
 GO
